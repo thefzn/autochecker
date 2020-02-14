@@ -157,6 +157,6 @@ async function doRetry () {
   }
 }
 
-setInterval(tick, 5000)
+setInterval(tick, 60000)
 
 tick()
