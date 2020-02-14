@@ -105,6 +105,7 @@ async function attempt (action, remaining, force) {
       if (success) {
         log('Action completed!')
         action.completed = true
+        retries = 0
       } else {
         log('Action resulted in an error!')
         retry = action
@@ -135,21 +136,27 @@ async function doRetry () {
       log('Too many retries, skipping', retry.action)
       retry.completed = true
       retry = null
+      retries = 0
       working = false
       return
     }
   }
   working = true
   retries++
+  log('Retrying', retry.action, retries)
   try {
-    await nw(`./automation/${retry.action}.js`)
+    const success = await nw(`./automation/${retry.action}.js`)
     working = false
-    retry.completed = true
+    if (success) {
+      log('Action completed!')
+      retry.completed = true
+      retries = 0
+    }
   } catch (err) {
     log(err)
   }
 }
 
-setInterval(tick, 60000)
+setInterval(tick, 5000)
 
 tick()
