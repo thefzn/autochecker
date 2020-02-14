@@ -1,0 +1,116 @@
+fieldset {
+    border: 1px solid #CCC;
+    margin-bottom: 15px;
+	padding-top: 10px;
+}
+fieldset legend {
+    color: #333;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+fieldset h3 {
+	margin-top:0;
+}
+fieldset div {
+    margin-bottom: 15px;
+    line-height: 1;
+	overflow: hidden;
+}
+fieldset:last-child ,
+fieldset div:last-child {
+	margin-bottom:0;
+}
+fieldset input[type="number"],
+fieldset input[type="password"],
+fieldset input[type="search"],
+fieldset input[type="text"],
+fieldset input[type="url"],
+fieldset input:not([type]) {
+	color:#54A50C;
+}
+fieldset input[type="number"]:focus,
+fieldset input[type="password"]:focus,
+fieldset input[type="search"]:focus,
+fieldset input[type="text"]:focus,
+fieldset input[type="url"]:focus,
+fieldset input:not([type]):focus {
+	border-color: #54A50C !important;
+	color:#333;
+}
+fieldset textarea:focus{
+	border-color: rgb(77, 144, 254);
+	color:#333;
+}
+fieldset label,
+fieldset textarea,
+fieldset input {
+    padding: 2px 5px;
+    line-height: 1;
+    width: 100%;
+    float: left;
+	box-sizing: border-box;
+}
+fieldset table td{
+	text-align:center;
+	vertical-align:top;
+}
+fieldset table label,
+fieldset table textarea,
+fieldset table input{
+	width:100%;
+}
+fieldset label{
+	line-height: 1.5;
+}
+fieldset .large{
+    width: 100% !important;
+}
+fieldset input[type="checkbox"] {
+    padding: 0;
+	margin-right:10px;
+	width:13px;
+}
+fieldset input[type="submit"] {
+	float:right;
+}
+table button {
+    min-width: 0 !important;
+    display: inline-block !important;
+}
+fieldset textarea,
+fieldset .jsBtnScript{
+	font-family:Courier New;
+	color: #3489B4;
+}
+fieldset .jsBtnRemove,
+fieldset .jsBtnRemoveSaved {
+	border: 0 none;
+    background: none #666 !important;
+    box-shadow: none !important;
+    padding: 0;
+    width: 17px;
+    height: 17px;
+    line-height: 20px !important;
+    min-height: 0;
+    border-radius: 9px;
+    vertical-align: top !important;
+    font-size: 12px;
+    margin: 4px 0 0;
+    text-shadow: none;
+    cursor: pointer;
+    overflow: hidden;
+}
+fieldset .jsBtnRemove:hover,
+fieldset .jsBtnRemoveSaved:hover {
+    background: #EE4030 !important;
+}
+fieldset .jsBtnRemove:before,
+fieldset .jsBtnRemoveSaved:before {
+	content:"x";
+	display:block;
+	width:17px;
+	height:17px;
+	color:white;
+	line-height:14px;
+	vertical-align:middle;
+}

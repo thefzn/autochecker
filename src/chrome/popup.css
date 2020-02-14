@@ -1,0 +1,61 @@
+html{
+	margin:0;
+	padding:0;
+}
+body{
+	width:200px;
+	padding:5px;
+	margin:0;
+}
+label {
+    cursor: pointer;
+    display: block;
+    width: 100%;
+	padding:5px;
+	box-sizing:border-box;
+}
+span {
+    line-height: 19px;
+    vertical-align: middle;
+}
+label:hover,
+label.checked {
+	background-color:#DEF9C5;
+}
+input {
+    width: 15px;
+    height: 15px;
+    float: left;
+    margin-right: 10px;
+}
+pre{
+    width: 100%;
+    white-space: normal;
+    color: #FFF;
+    background-color: #ACC694;
+    padding: 5px;
+    box-sizing: border-box;
+    margin: 0 0 5px;
+}
+div{
+    margin: 5px 0 0;
+	padding:0;
+}
+button {
+    display: block;
+    width: 100%;
+    background: none 0 0 scroll #6AB6F5;
+    border: 0;
+    padding: 6px;
+    cursor: pointer;
+    border-radius: 3px;
+    margin: 0 0 5px;
+    color: #FFF;
+    box-sizing: border-box;
+}
+button#save {
+    background: none 0 0 scroll #54A50C;
+}
+button:last-child {
+	margin:0;
+}

@@ -1,0 +1,30 @@
+{
+  "name": "autochecker",
+  "version": "0.1.0",
+  "description": "Autocheck for Softtek portal",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/start.js",
+    "test": "node src/nw.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thefzn/autochecker.git"
+  },
+  "author": "thefzn",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thefzn/autochecker/issues"
+  },
+  "homepage": "https://github.com/thefzn/autochecker#readme",
+  "dependencies": {
+    "chromedriver": "^79.0.1",
+    "dotenv": "^8.2.0",
+    "nightwatch": "^1.3.4",
+    "nightwatch-api": "^3.0.1"
+  },
+  "engines": {
+    "node" : ">=11.2.0",
+    "npm" : ">=6.13.0"
+  }
+}
