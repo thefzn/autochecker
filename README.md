@@ -20,19 +20,19 @@ The actions won't be triggered at the provided time, but a span of time will be 
 Let's say you setup your arrival at 8:00am and a variation of 10mins, your ARRIVAL action will trigger at some point between 7:50am and 8:10am. There's more chances of actions getting triggered before the scheduled time.
 
 ### Installation
-#####Clone the repo
+####Clone the repo
 ```git clone https://github.com/thefzn/autochecker.git```
 
-#####Install the dependencies
+####Install the dependencies
 ```npm i```
 
-#####Create your .env file.
+####Create your .env file.
 This file contains your Office365 credentials, work schedule and other setup.
 
 The project includes an .env.config, you can copy-paste, rename to `.env` and place your config there.
 
-#####Run
+####Run
 
 ```npm start```
 
-#####Go AFK.
+####Go AFK.
