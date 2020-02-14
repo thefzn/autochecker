@@ -1,8 +1,12 @@
+const dotenv = require('dotenv')
 const EventEmitter = require('events');
+
+dotenv.config()
+
 class officeLogin extends EventEmitter {
   command() {
-    const user = this.api.globals.USER || null
-    const pass = this.api.globals.PASS || null
+    const user = process.env.USER || null
+    const pass = process.env.PASS || null
 
     console.log('[LOG]','Logging as', user)
 

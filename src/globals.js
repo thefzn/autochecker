@@ -3,8 +3,6 @@ dotenv.config()
 
 module.exports = {
   asyncHookTimeout: 90000,
-  USER: process.env.USER || null,
-  PASS: process.env.PASS || null,
   /**
    * After all the tests are run, evaluate if there were errors and exit appropriately.
    *
