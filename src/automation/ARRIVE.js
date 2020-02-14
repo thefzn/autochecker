@@ -3,7 +3,7 @@ async function execute(browser) {
     // Navigate to starting URL 
     .officeLogin()
     .openChecker()
-    .assert.visible('.checkTypeButtons button.arrival')
+    .assert.elementPresent('.checkTypeButtons button.arrival')
     .click('.checkTypeButtons button.arrival')
     .pause(1000)
 }
