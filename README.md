@@ -28,6 +28,10 @@ Let's say you setup your arrival at 8:00am and a variation of 10mins, your ARRIV
 
 ```npm i```
 
+**IMPORTANT!!!!!**
+
+`chromedriver` version should match your Chrome version, run `npm i chromedriver@80.0.1` or whatever version you have.
+
 **Create your .env file.**
 
 This file contains your Office365 credentials, work schedule and other setup.
