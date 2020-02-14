@@ -21,12 +21,15 @@ Let's say you setup your arrival at 8:00am and a variation of 10mins, your ARRIV
 
 ### Installation
 **Clone the repo**
+
 ```git clone https://github.com/thefzn/autochecker.git```
 
 **Install the dependencies**
+
 ```npm i```
 
 **Create your .env file.**
+
 This file contains your Office365 credentials, work schedule and other setup.
 
 The project includes an .env.config, you can copy-paste, rename to `.env` and place your config there.
