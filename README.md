@@ -14,6 +14,11 @@ Using Node + Nightwatch (ChromeDriver), attempts to log into Office365, navigate
 - Doesn't notity when your credentials are invalid.
 - Doesn't have an interface.
 
+### The variation
+The actions won't be triggered at the provided time, but a span of time will be created and the actions will trigger randomly at some point:
+
+Let's say you setup your arrival at 8:00am and a variation of 10mins, your ARRIVAL action will trigger at some point between 7:50am and 8:10am. There's more chances of actions getting triggered before the scheduled time.
+
 ### Installation
 #####Clone the repo
 ```git clone https://github.com/thefzn/autochecker.git```
