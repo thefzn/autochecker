@@ -20,7 +20,7 @@ module.exports = {
             'browser': 'INFO'
           },
           chromeOptions: {
-              args: ["window-size=100,100"]
+              args: ["window-size=200,400"]
           }
         }
       },
