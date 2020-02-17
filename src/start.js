@@ -1,5 +1,5 @@
 const dotenv = require('dotenv');
-const nw = require('./nw')
+const execute = require('./execute')
 const log = require('./logger')
 
 dotenv.config();
@@ -79,7 +79,7 @@ function tick () {
       const remaining = action.time - now
       if (remaining < 0) {
         working = true
-        execute(action, remaining)
+        trigger(action, remaining)
       } else {
         const mins = parseInt(remaining / 60000)
         const HH = parseInt(mins / 60)
@@ -90,11 +90,11 @@ function tick () {
   })
 }
 
-async function execute (action) {
+async function trigger (action) {
   log('Executing action', action.action)
   working = true
   try {
-    const success = await nw(`./automation/${action.action}.js`)
+    const success = await execute(action.action)
     working = false
     if (success) {
       log(action.action, 'Action completed!')
@@ -135,7 +135,7 @@ async function doRetry () {
   retries++
   log('Retrying', retry.action, retries)
   try {
-    const success = await nw(`./automation/${retry.action}.js`)
+    const success = await execute(retry.action)
     working = false
     if (success) {
       log(retry.action, 'Action completed!')

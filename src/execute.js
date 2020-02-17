@@ -17,7 +17,8 @@ const {
     await stopWebDriver()
   }
   
-  async function execute(file) {
+  async function execute(action) {
+    const file = `./automation/${action}.js`
     try {
       await setup()
       await require(file)(client)
