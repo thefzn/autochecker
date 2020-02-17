@@ -4,11 +4,11 @@ const log = require('./logger')
 
 dotenv.config();
 
+const ACTIONS = ['ARRIVE', 'LUNCHSTART', 'LUNCHEND', 'LEAVE']
 const RETRIES = process.env.RETRIES || 3
+const VARIATION = process.env.CHECK_VARIATION ? parseInt(process.env.CHECK_VARIATION.match(/\d*/)[0]) * 60000 : 5 * 60000
 const today = getToday()
 const todayStartStr = `${today.getFullYear()}-${norm(today.getMonth() + 1)}-${norm(today.getDate())}T00:00:00.000Z`
-const ACTIONS = ['ARRIVE', 'LUNCHSTART', 'LUNCHEND', 'LEAVE']
-const VARIATION = process.env.CHECK_VARIATION ? parseInt(process.env.CHECK_VARIATION.match(/\d*/)[0]) * 60000 : 5 * 60000
 let dayProcessed = today.getDate() - 1
 let queue = []
 let working = false
@@ -43,14 +43,18 @@ function countMinutes (time) {
 function scheduledDate (time) {
   const mins = countMinutes(time)
   const todayStart = new Date(todayStartStr).setMinutes(mins)
-  return todayStart
+  return getRandom(todayStart)
+}
+function getRandom(startTime) {
+  const start = startTime - VARIATION
+  const random = Math.random() * VARIATION * 2
+  return start + random
 }
 function norm (d) {
   return d < 10 ? `0${d}` : d.toString()
 }
 function tick () {
   const nowDate = getToday()
-  const now = nowDate.getTime()
   const day = nowDate.getDate()
   if (working) {
     log('Already working, skipping this tick')
@@ -68,56 +72,30 @@ function tick () {
   }
   log('Tick', nowDate)
   queue.forEach(action => {
-    if (action.completed) {
-      log('Ignoring', action.action, '- Already completed')
-    } else if (working) {
-      log('Ignoring', action.action, '- Working on another action')
-    } else {
-      const remaining = action.time - now
-      const inLimits = Math.abs(remaining) < VARIATION
-
-      if (remaining < 0 || inLimits) {
-        log('Action applies for execution:', action.action)
-        working = true
-        attempt(action, remaining)
-      } else {
-        const mins = parseInt(remaining / 60000)
-        const HH = parseInt(mins / 60)
-        const mm = mins % 60
-        log('Ignoring', action.action, `- Running in ${HH}hrs ${mm}mins`)
-      }
-    }
+    if (action.completed) log('Ignoring', action.action, '- Already completed')
+    else if (working) log('Ignoring', action.action, '- Working on another action')
+    else execute(action)
   })
 }
 
-async function attempt (action, remaining, force) {
-  const delta = VARIATION * 2
-  const roulette = Math.random() * delta
-  const result = remaining < 0 || roulette > remaining
-
-  log('Attempting to execute', action.action)
-
-  if (result) {
-    log('Winner! Executing action')
-    try {
-      const success = await nw(`./automation/${action.action}.js`)
-      working = false
-      if (success) {
-        log('Action completed!')
-        action.completed = true
-        retries = 0
-      } else {
-        log('Action resulted in an error!')
-        retry = action
-      }
-    } catch (err) {
-      log('Action resulted in an error!', err)
-      working = false
+async function execute (action) {
+  log('Executing action', action.action)
+  working = true
+  try {
+    const success = await nw(`./automation/${action.action}.js`)
+    working = false
+    if (success) {
+      log(action.action, 'Action completed!')
+      action.completed = true
+      retries = 0
+    } else {
+      log(action.action, 'Action failed!')
       retry = action
     }
-  } else {
+  } catch (err) {
+    log(action.action, 'Error executing action:', err)
     working = false
-    log('Not selected for execution yet, maybe next time!')
+    retry = action
   }
 }
 async function doRetry () {
@@ -148,9 +126,11 @@ async function doRetry () {
     const success = await nw(`./automation/${retry.action}.js`)
     working = false
     if (success) {
-      log('Action completed!')
+      log(retry.action, 'Action completed!')
       retry.completed = true
       retries = 0
+    } else {
+      log(retry.action, 'Action failed!')
     }
   } catch (err) {
     log(err)
