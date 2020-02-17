@@ -55,6 +55,7 @@ function norm (d) {
 }
 function tick () {
   const nowDate = getToday()
+  const now = nowDate.getTime()
   const day = nowDate.getDate()
   if (working) {
     log('Already working, skipping this tick')
@@ -74,7 +75,18 @@ function tick () {
   queue.forEach(action => {
     if (action.completed) log('Ignoring', action.action, '- Already completed')
     else if (working) log('Ignoring', action.action, '- Working on another action')
-    else execute(action)
+    else {
+      const remaining = action.time - now
+      if (remaining < 0) {
+        working = true
+        execute(action, remaining)
+      } else {
+        const mins = parseInt(remaining / 60000)
+        const HH = parseInt(mins / 60)
+        const mm = mins % 60
+        log('Ignoring', action.action, `- Running in ${HH}hrs ${mm}mins`)
+      }
+    }
   })
 }
 
@@ -137,6 +149,6 @@ async function doRetry () {
   }
 }
 
-setInterval(tick, 60000)
+setInterval(tick, 56789)
 
 tick()
