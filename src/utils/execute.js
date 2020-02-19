@@ -18,7 +18,7 @@ async function shutdown() {
 }
 
 async function execute(action) {
-  const file = `./actions/${action}.js`
+  const file = `../actions/${action}.js`
   try {
     await setup()
     await require(file)(client)
