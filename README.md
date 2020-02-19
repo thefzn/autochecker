@@ -30,7 +30,7 @@ Let's say you setup your arrival at 8:00am and a variation of 10mins, your ARRIV
 
 **IMPORTANT!!!!!**
 
-`chromedriver` version should match your Chrome version, run `npm i chromedriver@80.0.1` or whatever version you have.
+`chromedriver` version should match your Chrome version, the version will autoupdate every time you run the start script. Please ensure you have the latest Chrome version installed.
 
 **Create your .env file.**
 
