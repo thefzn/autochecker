@@ -6,7 +6,8 @@
   "scripts": {
     "prestart": "npm i chromedriver@latest",
     "start": "node src/start.js",
-    "test": "node src/nw.js"
+    "run": "node src/start.js",
+    "debug": "set VERBOSE=true && set RETRIES=1 && node --trace-warnings src/start.js"
   },
   "repository": {
     "type": "git",
