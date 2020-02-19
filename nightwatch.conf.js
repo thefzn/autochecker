@@ -17,7 +17,7 @@ module.exports = {
           loggingPrefs: {
             'driver': 'INFO',
             'server': 'OFF',
-            'browser': 'OFF'
+            'browser': 'INFO'
           },
           chromeOptions: {
               args: ["window-size=200,400"]
