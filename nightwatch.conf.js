@@ -17,7 +17,7 @@ module.exports = {
           loggingPrefs: {
             'driver': 'INFO',
             'server': 'OFF',
-            'browser': 'INFO'
+            'browser': 'OFF'
           },
           chromeOptions: {
               args: ["window-size=200,400"]
@@ -25,7 +25,7 @@ module.exports = {
         }
       },
     },
-    globals_path: './src/globals.js',
+    globals_path: './src/config/globals.js',
     custom_commands_path: './src/commands',
     silent: true,
     disable_error_log: true
