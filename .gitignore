@@ -3,3 +3,4 @@
 /tests_output
 chromedriver.log
 debug.log
+package-lock.json
