@@ -19,7 +19,7 @@ class officeLogin extends EventEmitter {
           this.api
             .setValue('input[type=email]', user)
             .click('input[type=submit]')
-            .pause(2000)
+            .waitForElementVisible('input[type=password]')
             .setValue('input[type=password]', pass)
             .click('input[type=submit]')
             .waitForElementVisible('body')
