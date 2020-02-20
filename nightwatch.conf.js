@@ -28,6 +28,6 @@ module.exports = {
     },
     globals_path: './src/config/globals.js',
     custom_commands_path: './src/commands',
-    silent: ISDEV,
+    silent: !ISDEV,
     disable_error_log: ISDEV
 }
