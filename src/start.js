@@ -1,6 +1,6 @@
 const execute = require('./utils/execute')
 const logger = require('./utils/logger')
-const { ACTIONS, RETRIES, SCHEDULE, ESCAPE_ON_ERROR, TICK } = require('./config/config')
+const { ACTIONS, RETRIES, SCHEDULE, ESCAPE_ON_ERROR, TICK, VARIATION } = require('./config/config')
 const { resetTime, getScheduledTime, getCurrentTime, getCurrentDate } = require('./utils/time')
 
 let queue = []
@@ -43,8 +43,13 @@ function tick () {
     else if (working) logger.log('Ignoring', action.action, '- Working on another action')
     else {
       const remaining = action.time - now
+      const thereshold = -(VARIATION * 2)
       if (remaining < 0) {
         if (action.action === 'RESET') reset()
+        else if (remaining < thereshold) {
+          logger.warn('Action is way in the past, skipping action', action.action)
+          action.completed = true
+        }
         else trigger(action)
       } else {
         const mins = parseInt(remaining / 60000)
