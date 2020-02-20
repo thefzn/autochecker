@@ -1,4 +1,5 @@
 const chromedriver = require('chromedriver')
+const { ISDEV } = require('./src/config/config')
 
 module.exports = {
     src_folders: [`./src/automation`],
@@ -27,6 +28,6 @@ module.exports = {
     },
     globals_path: './src/config/globals.js',
     custom_commands_path: './src/commands',
-    silent: true,
-    disable_error_log: true
+    silent: ISDEV,
+    disable_error_log: ISDEV
 }

@@ -1,5 +1,8 @@
+require('dotenv').config()
+
+const ISDEV = process.env.ENV === 'development'
 const ACTIONS = ['ARRIVE', 'LUNCHSTART', 'LUNCHEND', 'LEAVE', 'RESET']
-const RETRIES = process.env.RETRIES || 3
+const RETRIES = process.env.RETRIES ? parseInt(process.env.RETRIES) || 15 : 15
 const VARIATION = process.env.CHECK_VARIATION ? parseInt(process.env.CHECK_VARIATION.match(/\d*/)[0]) * 60000 : 5 * 60000
 const DEFAULTS = {
   ARRIVE: '7:50', 
@@ -15,8 +18,9 @@ const SCHEDULE = {
   LEAVE: process.env.CHECK_LEAVE || DEFAULTS.LEAVE, 
   RESET: process.env.CHECK_RESET || DEFAULTS.RESET
 }
-const ESCAPE_ON_ERROR = process.env.ON_ERROR_STOP && (process.env.ON_ERROR_STOP === 'true' || process.env.ON_ERROR_STOP === 'TRUE')
-const LOG = process.env.VERBOSE && (process.env.VERBOSE === 'true' || process.env.VERBOSE === 'TRUE')
+const ESCAPE_ON_ERROR = !ISDEV && process.env.ON_ERROR_STOP && (process.env.ON_ERROR_STOP === 'true' || process.env.ON_ERROR_STOP === 'TRUE')
+const LOG = ISDEV || (process.env.VERBOSE && (process.env.VERBOSE === 'true' || process.env.VERBOSE === 'TRUE'))
+const TICK = ISDEV ? 1000 : process.env.TICK ? parseInt(process.env.TICK) || 56789 : 56789
 
 module.exports = {
   ACTIONS,
@@ -24,5 +28,7 @@ module.exports = {
   VARIATION,
   SCHEDULE,
   ESCAPE_ON_ERROR,
-  LOG
+  LOG,
+  TICK,
+  ISDEV
 }

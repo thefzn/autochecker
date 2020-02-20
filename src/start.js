@@ -1,6 +1,6 @@
 const execute = require('./utils/execute')
 const logger = require('./utils/logger')
-const { ACTIONS, RETRIES, SCHEDULE, ESCAPE_ON_ERROR } = require('./config/config')
+const { ACTIONS, RETRIES, SCHEDULE, ESCAPE_ON_ERROR, TICK } = require('./config/config')
 const { resetTime, getScheduledTime, getCurrentTime, getCurrentDate } = require('./utils/time')
 
 let queue = []
@@ -102,6 +102,6 @@ async function doRetry () {
   await trigger(retry)
 }
 
-setInterval(tick, 56789)
+setInterval(tick, TICK)
 
 reset()
