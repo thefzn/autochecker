@@ -42,4 +42,9 @@ The project includes an .env.config, you can copy-paste, rename to `.env` and pl
 
 ```npm start```
 
+This will check for `chromedriver` updates, then run the script. Other alternatives are:
+
+- `npm run run` skips the `chromedriver` autoupdate
+- `npm run debug` skips the `chromedriver` autoupdate and turn the logs on
+
 **Go AFK.**
