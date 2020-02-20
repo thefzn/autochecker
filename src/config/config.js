@@ -21,6 +21,21 @@ const SCHEDULE = {
 const ESCAPE_ON_ERROR = !ISDEV && process.env.ON_ERROR_STOP && (process.env.ON_ERROR_STOP === 'true' || process.env.ON_ERROR_STOP === 'TRUE')
 const LOG = ISDEV || (process.env.VERBOSE && (process.env.VERBOSE === 'true' || process.env.VERBOSE === 'TRUE'))
 const TICK = ISDEV ? 1000 : process.env.TICK ? parseInt(process.env.TICK) || 56789 : 56789
+const DAYS_OFF = parseDays()
+
+function parseDays () {
+  const daysOffRaw = process.env.CHECK_DAYS_OFF || 'Sat, Sun'
+  const daysMap = { sun: 0, mon: 1, tue: 2, wed: 3, thu: 4, fri: 5, sat: 6 }
+  const daysOff = daysOffRaw.replace(/\s/g, '').split(',')
+  
+  return daysOff.reduce((days, day) => {
+    const dayName = day.toString().toLowerCase().substr(0,3)
+    const dayValue = dayName in daysMap ? daysMap[dayName] : null
+    if (dayValue !== null) days.push(dayValue)
+    return days
+  }, [])
+}
+
 
 module.exports = {
   ACTIONS,
@@ -30,5 +45,6 @@ module.exports = {
   ESCAPE_ON_ERROR,
   LOG,
   TICK,
-  ISDEV
+  ISDEV,
+  DAYS_OFF
 }

@@ -1,6 +1,6 @@
 const execute = require('./utils/execute')
 const logger = require('./utils/logger')
-const { ACTIONS, RETRIES, SCHEDULE, ESCAPE_ON_ERROR, TICK, VARIATION } = require('./config/config')
+const { ACTIONS, RETRIES, SCHEDULE, ESCAPE_ON_ERROR, TICK, VARIATION, DAYS_OFF } = require('./config/config')
 const { resetTime, getScheduledTime, getCurrentTime, getCurrentDate } = require('./utils/time')
 
 let queue = []
@@ -10,20 +10,25 @@ let retries = 0
 
 function reset () {
   resetTime()
+  const dayOfWeek = getCurrentDate().getDay()
+  const isDayOff = DAYS_OFF.includes(dayOfWeek)
   queue = ACTIONS.map(action => {
     const schedule = SCHEDULE[action]
     const isReset = action === 'RESET'
     const time = getScheduledTime(schedule, isReset)
     return {
-      completed: false,
+      completed: isDayOff && !isReset,
       action,
       time
     }
   })
 
   logger.info('New day detected, reseting schedule', getCurrentDate())
-  logger.info(`Schedule reset to`)
-  queue.forEach(s => logger.info(s.action, 'at', new Date(s.time)))
+  if (isDayOff) logger.warn('Today\'s a day off, all actions will be marked as completed')
+  else {
+    logger.info(`Schedule reset to`)
+    queue.forEach(s => logger.info(s.action, 'at', new Date(s.time)))
+  }
 }
 
 function tick () {
