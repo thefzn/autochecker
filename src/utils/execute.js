@@ -1,4 +1,4 @@
-const { log } = require('./logger')
+const { success, error, log } = require('./logger')
 const {
     createSession,
     closeSession,
@@ -23,11 +23,12 @@ async function execute(action) {
     await setup()
     await require(file)(client)
     await shutdown()
-    log('[LOG]','Automation success!')
+    success('Automation success!')
     return true
   } catch (err) {
-    log('[LOG]','Automation failed!')
+    error('Automation failed!', err)
     await shutdown();
+    log('Automation shutdown completed')
     return false
   }
 }
