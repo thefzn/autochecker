@@ -1,12 +1,17 @@
 const { VARIATION } = require('../config/config')
-let currentTime = null
 let startOfDay = null
 
-function resetTime () {
+function getNow () {
   const now = new Date()
   const timeOffset = -(now.getTimezoneOffset() / 60)
 
   now.setHours(now.getHours() + timeOffset)
+
+  return now
+}
+
+function resetTime () {
+  const now = getNow()
 
   startOfDay = new Date(
     now.getFullYear() +
@@ -16,7 +21,6 @@ function resetTime () {
     norm(now.getDate()) +
     'T00:00:00.000Z'
   ).getTime()
-  currentTime = now.getTime()
 }
 
 function getScheduledTime (time, forNextDay) {
@@ -27,11 +31,11 @@ function getScheduledTime (time, forNextDay) {
 }
 
 function getCurrentTime () {
-  return currentTime
+  return getNow().getTime()
 }
 
 function getCurrentDate () {
-  return new Date(currentTime)
+  return getNow()
 }
 
 function getStartOfDay () {
