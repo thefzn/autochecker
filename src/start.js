@@ -77,6 +77,7 @@ async function trigger (action) {
       logger.success(action.action, 'Action completed!')
       action.completed = true
       retries = 0
+      retry = null
     } else {
       logger.error(action.action, 'Action failed!')
       retry = action
